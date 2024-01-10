@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const LIST_ICON_WIDTH = 36;
 
-/** The default Jellyfin app theme for mui */
+/** The default Gautrang app theme for mui */
 const theme = createTheme({
     palette: {
         mode: 'dark',
@@ -21,7 +21,7 @@ const theme = createTheme({
         }
     },
     typography: {
-        fontFamily: '"Noto Sans", sans-serif',
+        fontFamily: '"Bungee", sans-serif',
         button: {
             textTransform: 'none'
         },

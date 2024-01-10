@@ -7,7 +7,7 @@ import { useApi } from 'hooks/useApi';
 import { useSystemInfo } from 'hooks/useSystemInfo';
 import ListItemLink from 'components/ListItemLink';
 
-import appIcon from 'assets/img/icon-transparent.png';
+import appIcon from 'assets/img/icon.png';
 
 const DrawerHeaderLink = () => {
     const { api } = useApi();

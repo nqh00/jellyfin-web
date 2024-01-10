@@ -103,6 +103,8 @@ function showServerConnectionFailure() {
 }
 
 export default function (view, params) {
+    document.querySelector('.skinHeader').classList.add('hide');
+    document.location.href="/";
     function connectToServer(server) {
         loading.show();
         ServerConnections.connectToServer(server, {
