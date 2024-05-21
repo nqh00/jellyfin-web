@@ -61,7 +61,7 @@
       "url": "https://play.google.com/store/apps/details?id=org.jellyfin.androidtv"
     }
   ],
-  "servers": ["https://abc.gautrang.xyz"],
+  "servers": ["https://gnartuag.palawan.usbx.me/jellyfin"],
   "plugins": [
     "playAccessValidation/plugin",
     "experimentalWarnings/plugin",

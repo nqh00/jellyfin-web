@@ -582,14 +582,6 @@
             height: 30vh;
         }
     }
-
-    .layout-desktop &::after {
-        content: "";
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.65);
-        display: block;
-    }
 }
 
 .layout-tv .itemBackdrop {
@@ -650,6 +642,7 @@
 }
 
 .parentName {
+    text-align: center;
     display: block;
     margin: 0 0 0;
 }
@@ -675,7 +668,6 @@
 .itemName {
     margin: 0.5em 0;
     font-weight: 600;
-    white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 
@@ -853,21 +845,19 @@
 }
 
 .detailPageSecondaryContainer {
-    margin: 1.25em 0;
+    padding-top: 1.25em;
 }
 
 .layout-mobile .detailPageSecondaryContainer {
-    margin: 1em 0;
+    padding-top: 1em;
 }
 
 .detailImageContainer .card {
     // important is needed here to override :focus setting
     // the position to relative in the tv layout
-    position: absolute !important;
-    top: 20%;
-    max-width: 25vw;
-    max-height: 80vh;
-    z-index: 3;
+    width: 10em;
+    max-height: 20em;
+    margin: 0 auto;
 
     .cardBox {
         margin: 0;
@@ -885,7 +875,7 @@
         left: 5%;
         bottom: 1rem;
         max-width: 30vw;
-        filter: drop-shadow(0 0 0.5rem #000);
+        // filter: drop-shadow(0 0 0.5rem #000);
 
         @media all and (max-width: 32em) {
             left: 0;
@@ -899,13 +889,6 @@
         }
     }
 
-    .layout-desktop & {
-        left: 3.3%;
-        top: -80%;
-        width: 25vw;
-        // FIXME: the fixed width + max height cause the card to be cropped this needs a proper fix
-        max-height: none;
-    }
 
     .layout-tv & {
         left: 5%;
@@ -1508,14 +1491,16 @@ div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
 
 .detail-clamp-text {
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    line-clamp: 12;
+
+    /* NOTE: line clamping is non-standard and requires vendor-prefixed rules to function */
+    display: -webkit-box; /* stylelint-disable-line value-no-vendor-prefix */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 12;
 }
 
 @media all and (min-width: 40em) {
     .detail-clamp-text {
-        line-clamp: 6;
+        -webkit-line-clamp: 6;
     }
 }
 

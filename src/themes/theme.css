@@ -1602,10 +1602,6 @@ progress::-webkit-progress-value {
     display: none;
 }
 
-.layout-mobile .itemName.parentNameLast.withOriginalTitle {
-    padding-top: 135px;
-}
-
 .hide + .detailPageWrapperContainer .parentName,
 .hide + .detailPageWrapperContainer .parentNameLast,
 .hide + .detailPageWrapperContainer .itemName {
@@ -1654,10 +1650,7 @@ button > .material-icons.home::before {
 }
 
 .mainDrawer {
-    border-top-right-radius: 3em;
-    border-bottom-right-radius: 3em;
-    margin: 1em 0;
-    padding: 1em 0 1em;
+    padding-top: 2em;
 }
 
 /* -------------------- CONTEXT MENU -------------------- */
@@ -1874,6 +1867,11 @@ a[data-role="button"]:hover {
     width: 40vw;
     left: 5vw;
     height: auto;
+}
+
+.detailLogo.hide + .detailPagePrimaryContainer .infoWrapper .detailImageContainer {
+    display: block;
+    padding-left: 0;
 }
 
 .detailImageContainer {

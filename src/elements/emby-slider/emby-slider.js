@@ -1,3 +1,5 @@
+import isEqual from 'lodash-es/isEqual';
+
 import browser from '../../scripts/browser';
 import dom from '../../scripts/dom';
 import layoutManager from '../../components/layoutManager';
@@ -138,9 +140,6 @@ function updateValues(isValueSet) {
         }
 
         if (range.markerContainerElement) {
-            if (!range.triedAddingMarkers) {
-                addMarkers(range);
-            }
             updateMarkers(range, value);
         }
     });
@@ -160,6 +159,10 @@ function updateBubble(range, percent, value, bubble) {
         bubble.style.left = bubblePos + 'px';
 
         let html;
+
+        if (range.updateBubbleHtml?.(bubble, value)) {
+            return;
+        }
 
         if (range.getBubbleHtml) {
             html = range.getBubbleHtml(percent, value);
@@ -202,6 +205,22 @@ function setMarker(range, valueMarker, marker, valueProgress) {
 }
 
 function updateMarkers(range, currentValue) {
+    if (range.getMarkerInfo) {
+        const newMarkerInfo = range.getMarkerInfo();
+
+        if (!range.markerInfo || !isEqual(range.markerInfo, newMarkerInfo)) {
+            range.markerInfo = newMarkerInfo;
+
+            let markersHtml = '';
+            range.markerInfo.forEach(() => {
+                markersHtml += '<span class="sliderMarker" aria-hidden="true"></span>';
+            });
+            range.markerContainerElement.innerHTML = markersHtml;
+
+            range.markerElements = range.markerContainerElement.querySelectorAll('.sliderMarker');
+        }
+    }
+
     if (range.markerInfo?.length && range.markerElements?.length) {
         for (let i = 0, length = range.markerElements.length; i < length; i++) {
             if (range.markerInfo.length > i) {
@@ -209,35 +228,6 @@ function updateMarkers(range, currentValue) {
             }
         }
     }
-}
-
-function addMarkers(range) {
-    range.markerInfo = [];
-    if (range.getMarkerInfo) {
-        range.markerInfo = range.getMarkerInfo();
-    }
-
-    function getMarkerHtml(markerInfo) {
-        let markerTypeSpecificClasses = '';
-
-        if (markerInfo.className === 'chapterMarker') {
-            markerTypeSpecificClasses = markerInfo.className;
-
-            if (typeof markerInfo.name === 'string' && markerInfo.name.length) {
-                // limit the class length in case the name contains half a novel
-                markerTypeSpecificClasses = `${markerInfo.className} marker-${markerInfo.name.substring(0, 100).toLowerCase().replace(' ', '-')}`;
-            }
-        }
-
-        return `<span class="material-icons sliderMarker ${markerTypeSpecificClasses}" aria-hidden="true"></span>`;
-    }
-
-    range.markerInfo.forEach(info => {
-        range.markerContainerElement.insertAdjacentHTML('beforeend', getMarkerHtml(info));
-    });
-
-    range.markerElements = range.markerContainerElement.querySelectorAll('.sliderMarker');
-    range.triedAddingMarkers = true;
 }
 
 EmbySliderPrototype.attachedCallback = function () {

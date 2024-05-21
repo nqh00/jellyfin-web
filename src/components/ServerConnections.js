@@ -1,3 +1,4 @@
+import { MINIMUM_VERSION } from '@jellyfin/sdk/lib/versions';
 import { ConnectionManager, Credentials, ApiClient } from 'jellyfin-apiclient';
 
 import { appHost } from './apphost';
@@ -5,6 +6,7 @@ import Dashboard from '../utils/dashboard';
 import Events from '../utils/events.ts';
 import { setUserInfo } from '../scripts/settings/userSettings';
 import appSettings from '../scripts/settings/appSettings';
+import { queryClient } from 'utils/query/queryClient';
 
 const normalizeImageOptions = options => {
     if (!options.quality && (options.maxWidth || options.width || options.maxHeight || options.height || options.fillWidth || options.fillHeight)) {
@@ -33,8 +35,15 @@ class ServerConnections extends ConnectionManager {
         super(...arguments);
         this.localApiClient = null;
 
+        // Set the apiclient minimum version to match the SDK
+        this._minServerVersion = MINIMUM_VERSION;
+
         Events.on(this, 'localusersignedout', (_e, logoutInfo) => {
             setUserInfo(null, null);
+            // Ensure the updated credentials are persisted to storage
+            credentialProvider.credentials(credentialProvider.credentials());
+            // Reset the query cache
+            queryClient.resetQueries();
 
             if (window.NativeShell && typeof window.NativeShell.onLocalUserSignedOut === 'function') {
                 window.NativeShell.onLocalUserSignedOut(logoutInfo);
@@ -59,7 +68,7 @@ class ServerConnections extends ConnectionManager {
         );
 
         apiClient.enableAutomaticNetworking = false;
-        apiClient.manualAddressOnly = false;
+        apiClient.manualAddressOnly = true;
 
         this.addApiClient(apiClient);
 
@@ -104,6 +113,18 @@ class ServerConnections extends ConnectionManager {
         return apiClient;
     }
 
+    /**
+     * Gets the ApiClient that is currently connected or throws if not defined.
+     * @async
+     * @returns {Promise<ApiClient>} The current ApiClient instance.
+     */
+    async getCurrentApiClientAsync() {
+        const apiClient = this.currentApiClient();
+        if (!apiClient) throw new Error('[ServerConnection] No current ApiClient instance');
+
+        return apiClient;
+    }
+
     onLocalUserSignedIn(user) {
         const apiClient = this.getApiClient(user.ServerId);
         this.setLocalApiClient(apiClient);
@@ -116,12 +137,12 @@ class ServerConnections extends ConnectionManager {
     }
 }
 
-const credentials = new Credentials();
+const credentialProvider = new Credentials();
 
 const capabilities = Dashboard.capabilities(appHost);
 
 export default new ServerConnections(
-    credentials,
+    credentialProvider,
     appHost.appName(),
     appHost.appVersion(),
     appHost.deviceName(),

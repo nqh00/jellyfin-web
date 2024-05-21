@@ -33,11 +33,11 @@ const Spotlight = () => {
                 <SwiperSlide key={element.id}>
                     <a href={`/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
                         <div className='swiper-left'>
-                            <img className='swiper-logo' src={`https://abc.gautrang.xyz/Items/${element.id}/Images/Logo?quality=50`} loading='lazy' />
+                            <img className='swiper-logo' src={`https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Logo?quality=50`} loading='lazy' />
                             <p className='swiper-content'>{element.content}</p>
                         </div>
                         <div className='swiper-right'>
-                            <img className='swiper-backdrop' src={`https://abc.gautrang.xyz/Items/${element.id}/Images/Backdrop/0?maxWidth=720`} loading='lazy' />
+                            <img className='swiper-backdrop' src={`https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Backdrop/0?maxWidth=720`} loading='lazy' />
                         </div>
                     </a>
                 </SwiperSlide>
