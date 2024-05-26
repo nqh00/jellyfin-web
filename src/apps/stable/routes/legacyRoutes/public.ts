@@ -12,21 +12,21 @@ export const LEGACY_PUBLIC_ROUTES: LegacyRoute[] = [
         path: 'about-us.html',
         pageProps: {
             controller: 'session/bonjour/index',
-            view: 'session/bonjour/about-us.html'
+            view: '../about-us.html'
         }
     },
     {
         path: 'policy.html',
         pageProps: {
             controller: 'session/bonjour/index',
-            view: 'session/bonjour/policy.html'
+            view: '../policy.html'
         }
     },
     {
         path: 'dmca.html',
         pageProps: {
             controller: 'session/bonjour/index',
-            view: 'session/bonjour/dmca.html'
+            view: '../dmca.html'
         }
     },
     {

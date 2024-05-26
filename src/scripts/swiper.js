@@ -5,6 +5,14 @@ import { render } from 'react-dom';
 import spotlight from 'strings/spotlight.json';
 import 'swiper/css/bundle';
 
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 const defaultSwiperOptions = {
     loop: true,
     centeredSlides: true,
@@ -12,7 +20,7 @@ const defaultSwiperOptions = {
         clickable: true,
     },
     autoplay: {
-        delay: 10000,
+        delay: 7000,
     },
     modules: [Pagination, EffectFade, Autoplay],
     effect: 'fade',
@@ -24,12 +32,17 @@ const Spotlight = () => {
     const handleImagesReady = () => {
         setImagesLoaded(true);
     };
-    if (!spotlight.length) {
+    
+    // Shuffle the spotlight array
+    const shuffledSpotlight = [...spotlight];
+    shuffleArray(shuffledSpotlight);
+
+    if (!shuffledSpotlight.length) {
         return null;
     }
     return (
         <Swiper {...defaultSwiperOptions} onImagesReady={handleImagesReady}>
-            {spotlight.map((element) => (
+            {shuffledSpotlight.map((element) => (
                 <SwiperSlide key={element.id}>
                     <a href={`/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
                         <div className='swiper-left'>

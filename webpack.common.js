@@ -78,6 +78,15 @@ const config = {
                     }
                 },
                 {
+                    from: 'about-us.html',
+                },
+                {
+                    from: 'policy.html',
+                },
+                {
+                    from: 'dmca.html',
+                },
+                {
                     from: '*.*',
                     globOptions: {
                         dot: true,
