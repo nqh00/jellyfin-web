@@ -42,8 +42,6 @@ class ServerConnections extends ConnectionManager {
             setUserInfo(null, null);
             // Ensure the updated credentials are persisted to storage
             credentialProvider.credentials(credentialProvider.credentials());
-            // Reset the query cache
-            queryClient.resetQueries();
 
             if (window.NativeShell && typeof window.NativeShell.onLocalUserSignedOut === 'function') {
                 window.NativeShell.onLocalUserSignedOut(logoutInfo);
