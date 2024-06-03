@@ -32,7 +32,7 @@ const Spotlight = () => {
     const handleImagesReady = () => {
         setImagesLoaded(true);
     };
-    
+
     // Shuffle the spotlight array
     const shuffledSpotlight = [...spotlight];
     shuffleArray(shuffledSpotlight);
@@ -44,13 +44,13 @@ const Spotlight = () => {
         <Swiper {...defaultSwiperOptions} onImagesReady={handleImagesReady}>
             {shuffledSpotlight.map((element) => (
                 <SwiperSlide key={element.id}>
-                    <a href={`/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
+                    <a href={element.id === 'jellyseerr' ? 'https://requests.gautrang.io' : `/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
                         <div className='swiper-left'>
-                            <img className='swiper-logo' src={`https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Logo?quality=50`} loading='lazy' />
+                            <img className='swiper-logo' src={element.id === 'jellyseerr' ? '/jellyseerr.png' : `https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Logo?quality=50`} loading='lazy' />
                             <p className='swiper-content'>{element.content}</p>
                         </div>
                         <div className='swiper-right'>
-                            <img className='swiper-backdrop' src={`https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Backdrop/0?maxWidth=720`} loading='lazy' />
+                            <img className='swiper-backdrop' src={element.id === 'jellyseerr' ? '/jellyseerr.gif' : `https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Backdrop/0?maxWidth=720`} loading='lazy' />
                         </div>
                     </a>
                 </SwiperSlide>
