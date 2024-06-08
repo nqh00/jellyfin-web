@@ -44,7 +44,7 @@ const Spotlight = () => {
         <Swiper {...defaultSwiperOptions} onImagesReady={handleImagesReady}>
             {shuffledSpotlight.map((element) => (
                 <SwiperSlide key={element.id}>
-                    <a href={element.id === 'jellyseerr' ? 'https://requests.gautrang.io' : `/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
+                    <a href={element.id === 'jellyseerr' ? 'https://io.gautrang.io' : `/#/details?id=${element.id}`} target='_top' rel='noreferrer'>
                         <div className='swiper-left'>
                             <img className='swiper-logo' src={element.id === 'jellyseerr' ? '/jellyseerr.png' : `https://gnartuag.palawan.usbx.me/jellyfin/Items/${element.id}/Images/Logo?quality=50`} loading='lazy' />
                             <p className='swiper-content'>{element.content}</p>
