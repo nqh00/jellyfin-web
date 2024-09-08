@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "@emotion/react": "11.11.4",
+    "@fontsource/bungee": "5.0.18",
+    "@fontsource/merienda": "5.0.8",
     "@emotion/styled": "11.11.0",
     "@fontsource/noto-sans": "5.0.21",
     "@fontsource/noto-sans-hk": "5.0.18",

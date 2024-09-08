@@ -1,0 +1,17 @@
+// Map font weight numbers to names
+$weight-names: (400: "Regular");
+
+// Mixin to help create the Netflix Sans font-faces
+@mixin fontFace($family: "Mynerve", $style: normal, $weight: 400, $url: null, $range: null) {
+    @font-face {
+        font-family: $family;
+        font-style: $style;
+        font-display: swap;
+        font-weight: $weight;
+        src: local($family), local("#{$family} #{map-get($weight-names, $weight)}"), url($url) format("woff2");
+        unicode-range: $range;
+    }
+}
+
+@import "./base-400-normal";
+

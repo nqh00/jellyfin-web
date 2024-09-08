@@ -105,7 +105,7 @@ export function logout() {
         // Reset cached views
         viewContainer.reset();
         webSettings.getMultiServer().then(multi => {
-            multi ? navigate('selectserver.html') : navigate('login.html');
+            multi ? navigate('bonsoir.html') : navigate('login.html');
         });
     });
 }
@@ -190,8 +190,6 @@ export function capabilities(appHost) {
 export function selectServer() {
     if (window.NativeShell && typeof window.NativeShell.selectServer === 'function') {
         window.NativeShell.selectServer();
-    } else {
-        navigate('selectserver.html');
     }
 }
 

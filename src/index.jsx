@@ -109,6 +109,9 @@ function onGlobalizeInit() {
         console.debug('using default fonts');
         import('./styles/fonts.scss');
         import('./styles/fonts.noto.scss');
+        import('./styles/fonts.netflix.scss');
+        import('./styles/fonts.bungee.scss');
+        import('./styles/fonts.merienda.scss');
     }
 
     import('./styles/librarybrowser.scss');

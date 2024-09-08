@@ -67,6 +67,15 @@ const config = {
         new CopyPlugin({
             patterns: [
                 {
+                    from: 'about-us.html',
+                },
+                {
+                    from: 'policy.html',
+                },
+                {
+                    from: 'dmca.html',
+                },
+                {
                     from: 'themes/',
                     to: 'themes/'
                 },

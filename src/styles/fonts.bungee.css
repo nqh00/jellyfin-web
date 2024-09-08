@@ -1,0 +1,5 @@
+@import "../styles/bungee/index.scss";
+
+html {
+    font-family: "Bungee", sans-serif;
+}

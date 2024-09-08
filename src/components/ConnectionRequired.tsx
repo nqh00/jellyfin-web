@@ -10,9 +10,10 @@ import globalize from '../scripts/globalize';
 import { ConnectionState } from '../utils/jellyfin-apiclient/ConnectionState';
 
 enum BounceRoutes {
+    Bonjour = '/bonjour.html',
     Home = '/home.html',
     Login = '/login.html',
-    SelectServer = '/selectserver.html',
+    SelectServer = '/bonsoir.html',
     StartWizard = '/wizardstart.html'
 }
 
@@ -46,20 +47,27 @@ const ConnectionRequired: FunctionComponent<ConnectionRequiredProps> = ({
                 // Bounce to the login page
                 if (location.pathname === BounceRoutes.Login) {
                     setIsLoading(false);
+                    navigate(`${BounceRoutes.Login}?serverid=${connectionResponse.ApiClient.serverId()}`);
                 } else {
                     console.debug('[ConnectionRequired] not logged in, redirecting to login page', location);
                     const url = encodeURIComponent(location.pathname + location.search);
-                    navigate(`${BounceRoutes.Login}?serverid=${connectionResponse.ApiClient.serverId()}&url=${url}`);
+                    // Bounce to the welcome page
+                    navigate(BounceRoutes.Bonjour);
                 }
                 return;
             case ConnectionState.ServerSelection:
-                // Bounce to select server page
+                // Bounce to the select server page
                 if (location.pathname === BounceRoutes.SelectServer) {
                     setIsLoading(false);
-                } else {
-                    console.debug('[ConnectionRequired] redirecting to select server page');
                     navigate(BounceRoutes.SelectServer);
+                } else {
+                    console.debug('[ConnectionRequired] redirecting to welcome page');
+                    navigate(BounceRoutes.Bonjour);
                 }
+                return;
+            case ConnectionState.Unavailable:
+                // Bounce to the welcome page
+                navigate(BounceRoutes.Bonjour);
                 return;
             case ConnectionState.ServerUpdateNeeded:
                 // Show update needed message and bounce to select server page

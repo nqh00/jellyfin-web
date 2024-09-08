@@ -21,7 +21,7 @@ import { history } from 'RootAppRouter';
  * Page types of "no return" (when "Go back" should behave differently, probably quitting the application).
  */
 const START_PAGE_TYPES = ['home', 'login', 'selectserver'];
-const START_PAGE_PATHS = ['/home.html', '/login.html', '/selectserver.html'];
+const START_PAGE_PATHS = ['/home.html', '/login.html', '/bonsoir.html'];
 
 class AppRouter {
     allRoutes = new Map();
@@ -737,7 +737,7 @@ class AppRouter {
     }
 
     showSelectServer() {
-        return this.show('selectserver.html');
+        return this.show('bonsoir.html');
     }
 
     showSettings() {
